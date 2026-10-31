@@ -1,0 +1,10 @@
+const nav=document.getElementById('nav');
+const sc=()=>nav.classList.toggle('s',scrollY>60);sc();addEventListener('scroll',sc,{passive:true});
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.15});
+document.querySelectorAll('.rv').forEach(el=>io.observe(el));
+const co=new IntersectionObserver(es=>es.forEach(e=>{if(!e.isIntersecting)return;co.unobserve(e.target);
+ const el=e.target,n=+el.dataset.n,t0=performance.now();
+ (function f(t){const p=Math.min(1,(t-t0)/1400),v=Math.round(n*(1-Math.pow(1-p,3)));
+  el.textContent=(el.dataset.plain?v:v.toLocaleString())+(p===1&&el.dataset.plus?'+':'');
+  if(p<1)requestAnimationFrame(f)})(t0)}),{threshold:.6});
+document.querySelectorAll('[data-n]').forEach(el=>co.observe(el));

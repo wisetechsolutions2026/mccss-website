@@ -1,0 +1,93 @@
+/* ===== animation layer ===== */
+@keyframes up{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:none}}
+@keyframes zoom{from{transform:scale(1)}to{transform:scale(1.14)}}
+@keyframes float{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(30px,-40px) scale(1.12)}}
+@keyframes shine{to{background-position:200% center}}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(231,57,22,.55)}100%{box-shadow:0 0 0 16px rgba(231,57,22,0)}}
+@keyframes tick{to{transform:translateX(-50%)}}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(10px)}}
+@keyframes drop{from{opacity:0;transform:translateY(-100%)}to{opacity:1;transform:none}}
+@keyframes fade{from{opacity:0}to{opacity:1}}
+body{animation:fade .6s ease both}
+nav{animation:drop .7s ease both}
+#bar{position:fixed;top:0;left:0;height:4px;width:100%;transform-origin:left;transform:scaleX(0);background:linear-gradient(90deg,var(--saffron),#f4c27a);z-index:99}
+
+/* hero */
+.hero{overflow:hidden;isolation:isolate;background:none}
+.hero::before{content:"";position:absolute;inset:-6%;z-index:-2;background:url(../img/hero.webp) center 8%/cover;animation:zoom 22s ease-in-out infinite alternate;will-change:transform}
+.hero::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(28,20,18,.55),rgba(28,20,18,.93))}
+.blob{position:absolute;border-radius:50%;filter:blur(60px);opacity:.45;z-index:-1;animation:float 12s ease-in-out infinite;pointer-events:none}
+.hero .eyebrow,.hero h1,.hero p,.hero .btns{animation:up .9s cubic-bezier(.2,.7,.2,1) both}
+.hero .eyebrow{animation-delay:.2s}.hero h1{animation-delay:.4s}.hero p{animation-delay:.65s}.hero .btns{animation-delay:.85s}
+.hero h1 em{background:linear-gradient(90deg,#f4c27a,#fff,#f4c27a);background-size:200% auto;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shine 4s linear infinite}
+.cue{position:absolute;bottom:22px;left:50%;width:26px;height:42px;border:2px solid rgba(255,255,255,.7);border-radius:20px;margin-left:-13px}
+.cue::after{content:"";position:absolute;left:50%;top:8px;width:4px;height:8px;margin-left:-2px;border-radius:3px;background:#fff;animation:bob 1.4s ease-in-out infinite}
+.ph{position:relative;overflow:hidden;isolation:isolate}
+.ph h1,.ph p,.ph .eyebrow{animation:up .8s cubic-bezier(.2,.7,.2,1) both}
+.ph h1{animation-delay:.15s}.ph p:last-child{animation-delay:.3s}
+
+/* buttons */
+.btn{position:relative;overflow:hidden}
+.btn::after{content:"";position:absolute;top:0;left:-70%;width:50%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.55),transparent);transform:skewX(-20deg);transition:.7s}
+.btn:hover::after{left:130%}
+.btn:not(.ghost){animation:pulse 2.4s infinite}
+.btn:hover{animation:none}
+
+/* reveal variants */
+.rv{transition:opacity .8s cubic-bezier(.2,.7,.2,1),transform .8s cubic-bezier(.2,.7,.2,1);transition-delay:var(--d,0s)}
+.about>.rv:first-child,.ev:nth-child(odd){transform:translateX(-50px)}
+.about>.pics,.ev:nth-child(even){transform:translateX(50px)}
+.gg .rv{transform:scale(.88)}
+.rv.in{opacity:1;transform:none}
+
+/* cards */
+.card{transition:transform .25s ease,box-shadow .25s ease,opacity .8s,border-color .3s}
+.card.in:hover{border-color:var(--saffron)}
+.card .ic{display:inline-block;transition:transform .4s cubic-bezier(.3,1.8,.5,1)}
+.card:hover .ic{transform:scale(1.3) rotate(-8deg)}
+.tags span{transition:.25s}
+.tags span:hover{background:var(--saffron);color:#fff;transform:translateY(-3px) rotate(-2deg)}
+
+/* timeline: line draws on scroll */
+.line{border-left:0}
+.line::before{content:"";position:absolute;left:-2px;top:0;bottom:0;width:2px;background:var(--line)}
+.line::after{content:"";position:absolute;left:-2px;top:0;width:3px;height:calc(var(--p,0)*100%);background:linear-gradient(var(--saffron),var(--green-d));border-radius:3px}
+.ev.in::before{animation:pulse 2s 2}
+.ev time{display:inline-block;background:linear-gradient(90deg,var(--green),var(--saffron));-webkit-background-clip:text;background-clip:text;color:transparent}
+
+/* stats */
+.stats{background:linear-gradient(120deg,var(--green-d),#43342e,var(--green-d));background-size:200% 100%;animation:shine 12s linear infinite;position:relative;overflow:hidden;isolation:isolate}
+
+/* ticker */
+.tk{overflow:hidden;background:var(--saffron);color:#fff;padding:14px 0;font:700 18px Fraunces,serif;white-space:nowrap}
+.tk div{display:inline-block;animation:tick 28s linear infinite}
+.tk span{margin:0 26px}
+.tk i{font-style:normal;opacity:.6}
+
+/* gallery + lightbox */
+.gg figure{cursor:zoom-in}
+.gg figcaption{transform:translateY(100%);transition:.4s}
+.gg figure:hover figcaption{transform:none}
+#lb{position:fixed;inset:0;background:rgba(15,10,9,.92);display:none;align-items:center;justify-content:center;z-index:200;padding:24px;cursor:zoom-out}
+#lb.o{display:flex;animation:fade .3s}
+#lb img{max-height:88vh;border-radius:12px;animation:up .4s}
+@media(hover:none){.gg figcaption{transform:none}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}}
+
+/* hero banners with photo, lighter overlay */
+.ph{background:var(--green-d);min-height:300px;display:flex;align-items:flex-end;padding:150px 0 56px}
+.ph .wrap{width:100%}
+.ph::before{content:"";position:absolute;inset:-6%;z-index:-3;background:var(--bg-img) var(--bg-pos,center)/cover;animation:zoom 22s ease-in-out infinite alternate}
+.ph::after{content:"";position:absolute;inset:0;z-index:-2;background:linear-gradient(90deg,rgba(28,20,18,.62),rgba(28,20,18,.18))}
+.ph .blob{opacity:.25}
+.ph h1,.ph p{text-shadow:0 2px 14px rgba(0,0,0,.45)}
+.hero::after{background:linear-gradient(180deg,rgba(28,20,18,.25),rgba(28,20,18,.7))}
+.hero h1,.hero p{text-shadow:0 2px 16px rgba(0,0,0,.5)}
+nav:not(.s){background:linear-gradient(rgba(40,10,6,.55),transparent)}
+nav:not(.s) ul a,nav:not(.s) .logo{text-shadow:0 1px 8px rgba(0,0,0,.5)}
+
+.hero::after{background:linear-gradient(180deg,rgba(28,20,18,.1) 0%,rgba(28,20,18,.25) 28%,rgba(20,14,12,.92) 62%,rgba(20,14,12,.96) 100%)}
+.hero h1{font-size:clamp(36px,5.6vw,68px)}
+.hero{padding-bottom:90px}
+.hero{min-height:max(100vh,min(960px,66vw))}
+.hero::after{background:linear-gradient(180deg,rgba(28,20,18,.08) 0%,rgba(28,20,18,.12) 40%,rgba(20,14,12,.9) 72%,rgba(20,14,12,.96) 100%)}
