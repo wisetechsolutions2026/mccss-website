@@ -117,3 +117,5 @@ html,body{overflow-x:clip;max-width:100%}
  .hero::after{background:linear-gradient(180deg,rgba(20,14,12,.05) 0%,rgba(20,14,12,.15) 30%,rgba(20,14,12,.95) 58%,#14100e 100%)}
 }
 @media(max-width:820px){nav ul a{text-shadow:none!important}}
+
+html{overflow-x:hidden}
